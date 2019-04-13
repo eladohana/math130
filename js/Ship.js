@@ -7,8 +7,8 @@ class Ship extends MovingObject{
     */
   constructor(config){
     super(config);
-    this.game = config.game;
-    this.fireRate = 1;
+    // this.game = config.game;
+    this.fireRate = 10;
     this.fireCounter = 0;
     this.shots = []
   }
@@ -278,8 +278,8 @@ class Ship extends MovingObject{
 class ShipConfig extends MovingObjectConfig{
   constructor(x, y, degrees, radius, color, gameConfig){
     super(x, y, degrees, radius, color, gameConfig);
-    this.speedCoeff = 10 * 0.1;
-    this.angleCoeff = 1 * 0.1;
+    this.speedCoeff = 10 * 1;
+    this.angleCoeff = 1 * 1;
     this.speed = this.speedCoeff * gameConfig.moveUnits/gameConfig.refreshRate;
     this.rotationSpeed = this.angleCoeff * 360 / gameConfig.refreshRate;
     this.game = gameConfig;

@@ -10,6 +10,7 @@ class MovingObject{
     this.color = config.color;
     this.radius = config.radius;
     this.rotationSpeed = config.rotationSpeed;
+    this.game = config.game;
   }
 
   /** Converts a degree number to radian

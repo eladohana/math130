@@ -102,7 +102,7 @@ class Game{
       console.log(collision)
       this.playerShip.color = this.randomColor();
       this.enemyShip.color = this.randomColor();
-      this.intersectColors = this.randomColor();
+      // this.intersectColors = this.randomColor();
     }
   }
 

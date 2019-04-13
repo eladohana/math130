@@ -23,8 +23,10 @@ class Projectile extends MovingObject{
     * Run the functions that will need to run throughout the game
     */
   alwaysActive(){
+    this.normalizeAngle();
     this.drawSelf();
     this.moveForward();
+    this.bounce();
   }
 
 
@@ -91,4 +93,26 @@ class Projectile extends MovingObject{
 
   }
 
+  /**
+    * Check if the projectile has hit the border
+    * @return {array} an array of one or two angles based on the border in question
+    */
+  checkBorderCollision(){
+    let walls = [];
+    if ((this.x - this.radius <=0 && this.degrees > 90 && this.degrees < 270) || (this.x + this.radius >= this.game.width && (this.degrees < 90 || this.degrees > 270))) {
+      walls.push(180);
+    }
+    if ((this.y - this.radius <=0 && this.degrees < 180) || (this.y + this.radius >= this.game.height && this.degrees > 180)) {
+      walls.push(0);
+    }
+    return walls
+  }
+
+  /**
+    */
+  bounce(){
+    for (let wall of this.checkBorderCollision()){
+      this.degrees = 360 - this.degrees + wall;
+    }
+  }
 }
