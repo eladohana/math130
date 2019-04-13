@@ -7,7 +7,9 @@ class Projectile extends MovingObject{
     // this.color = config.color;
     // this.radius = config.radius;
   }
-
+  /**
+    * Draw projectile on the canvas
+    */
   drawSelf(){
     this.context.fillStyle = this.color;
     this.context.beginPath();
@@ -16,11 +18,21 @@ class Projectile extends MovingObject{
     this.context.closePath();
   }
 
+
+  /**
+    * Run the functions that will need to run throughout the game
+    */
   alwaysActive(){
     this.drawSelf();
     this.moveForward();
   }
 
+
+  /**
+    * Get an intersection given the projectile circle and a line
+    * @param {object} line a line object
+    * @return {array|null} return an array of objects representing intersection points or null if none are found
+    */
   findLineIntersection(line){
     if (!this.verticalLine(line)){
       let h = this.x;
@@ -41,6 +53,12 @@ class Projectile extends MovingObject{
     return null;
   }
 
+
+  /**
+    * Find all line intersections with the ship
+    * @param {object} ship a ship object
+    * @return {array} return an array of objects representing intersection points
+    */
   checkShipIntersections(ship){
     let intersections = []
     for (let line of ship.lines){
@@ -49,6 +67,12 @@ class Projectile extends MovingObject{
     return intersections;
   }
 
+
+  /**
+    * Check if the projectile has collided with a ship
+    * @param {object} ship a ship object
+    * @return {object|boolean} return a point where the ship collides or false if none
+    */
   checkShipCollision(ship){
     if (this.active){
       for (let line of ship.lines){

@@ -190,7 +190,11 @@ class Ship extends MovingObject{
     return null;
   }
 
-
+  /**
+    * Check the line intersections between two ships
+    * @param {object} other another ship
+    * @return {array} return intersection points found
+    */
   checkIntersections(other){
     const intersections = [];
     if (other.__proto__.constructor.name === "Ship"){
@@ -208,6 +212,9 @@ class Ship extends MovingObject{
     return intersections;
   }
 
+  /**
+    * Draw ship on the canvas
+    */
   drawSelf(){
     this.context.fillStyle = this.color;
     this.context.beginPath();
@@ -220,13 +227,19 @@ class Ship extends MovingObject{
 
   }
 
+  /**
+    * Propel the ship forward at current angle and check that it does not go outside of canvas area
+    */
   moveForward(){
     super.moveForward();
     this.keepInBox(this.game.width, this.game.height);
   }
 
-  shoot(){
 
+  /**
+    * Create a projectile object to hit the other ship
+    */
+  shoot(){
     if (this.fireCounter >= this.fireRefresh){
       const config = {};
       for (let key in this){
@@ -243,7 +256,9 @@ class Ship extends MovingObject{
   }
 
 
-
+  /**
+    * Run the functions that will need to run throughout the game
+    */
   alwaysActive(){
     this.drawSelf();
     this.drawLines();
@@ -256,6 +271,10 @@ class Ship extends MovingObject{
 }
 
 
+
+/**
+  * Object constructor with the details for the ship
+  */
 class ShipConfig extends MovingObjectConfig{
   constructor(x, y, degrees, radius, color, gameConfig){
     super(x, y, degrees, radius, color, gameConfig);

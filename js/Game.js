@@ -10,6 +10,11 @@ class GameArea {
 
   }
 
+  /** Configures a canvas element and displays on html page
+    * @param {int} width the width of the canvas
+    * @param {int} height the height of the canvas
+    * @param {string} id the id attribute parent element
+    */
   start(width, height, id){
     this.canvas.width = width;
     this.canvas.height = height;
@@ -17,6 +22,8 @@ class GameArea {
     document.getElementById(id).appendChild(this.canvas);
   }
 
+  /** Clear canvas for page refresh
+    */
   clear(){
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.context.fillStyle = "#000000";
@@ -48,6 +55,8 @@ class Game{
     }, 1000/this.refreshRate)
   }
 
+  /** Runs all the game functions performed
+    */
   drawGame() {
     this.gameArea.clear();
     this.playerShip.alwaysActive();
@@ -55,19 +64,27 @@ class Game{
     this.drawIntersections();
     this.performKeyFunctions();
     this.checkCollision();
-
   }
 
+  /** Returns a random integer between 0 and the given range
+    * @param {int} range the upper end of the range
+    * @return {int} a number between 0 and the range
+    */
   randomInt(range){
     return Math.trunc(Math.random() * range);
   }
 
+  /** Creates a random color in RGB
+    * @return {string} a string signifying the rgb color value
+    */
   randomColor(){
     const rand = this.randomInt
     return `rgb(${rand(256)}, ${rand(256)}, ${rand(256)})`;
   }
 
 
+  /** Check collision between the ships and projectiles and change everything to random colors
+    */
   checkCollision() {
     // if (this.playerShip.checkCollision(this.enemyShip)){
     //   this.enemyShip.color = "FFFFFF";
@@ -89,6 +106,12 @@ class Game{
     }
   }
 
+  /** Draw a small circle
+    * @param {int|float} centerX the x coordinate of the center
+    * @param {int|float} centerY the Y coordinate of the center
+    * @param {int|float} radius the radius of the circle
+    * @param {string} color the color of the circle
+    */
   drawCircle(centerX, centerY, radius, color){
     this.gameArea.context.fillStyle = color;
     this.gameArea.context.beginPath();
@@ -97,6 +120,8 @@ class Game{
 
   }
 
+  /** Draw circles at intersection points
+    */
   drawIntersections(){
 
     let intersections = this.playerShip.checkIntersections(this.enemyShip);
@@ -117,7 +142,8 @@ class Game{
     // return this.playerShip.checkIntersections(this.enemyShip);
   }
 
-
+  /** Create small HTML table displaying ship information
+    */
   displayGameInfo() {
     this.counter += 1000/this.refreshRate;
     if (this.counter >= 100){
@@ -140,12 +166,16 @@ class Game{
     }
   }
 
+  /** Perform the functions based on keys pressed
+    */
   performKeyFunctions() {
     for (let key of this.keysPressed) {
       this.keyFunctions[key]();
     }
   }
 
+  /** Listen for player input and pass the information to other functions
+    */
   htmlSetup(){
     this.keyFunctions = {
       'ArrowUp': () => {this.playerShip.moveForward()},

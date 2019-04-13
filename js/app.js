@@ -4,7 +4,7 @@
 const game = new Game();
 
 
-
+// Numbers to test formula
 let m=2;
 let h=3;
 let k=4;
