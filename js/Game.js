@@ -35,19 +35,19 @@ class GameArea {
 class Game{
   constructor(){
     this.width = window.visualViewport.width * .98;
-    this.height = window.visualViewport.height * .70
+    this.height = window.visualViewport.height * .65
     this.gameArea = new GameArea(this.width, this.height, "game-area");
     // gameArea.background()
     this.refreshRate = 120;
     this.moveUnits = 50;
-    this.playerConfig = new ShipConfig(this.width/2,this.height * 0.85, 45, 80, "#00FF00", this);
-    this.enemyConfig = new ShipConfig(this.width/3,this.height * 0.35, 300, 80, "#FFFF00", this);
+    this.playerConfig = new ShipConfig(this.width/2,this.height * 0.85, 45, 50, "#00FF00", this);
+    this.enemyConfig = new ShipConfig(this.width/3,this.height * 0.35, 300, 50, "#FFFF00", this);
     this.playerShip = new Ship(this.playerConfig);
     this.enemyShip = new Ship(this.enemyConfig);
     this.displayInfo = document.getElementById("info");
     this.intersectColors = "#FF0000";
     this.htmlSetup();
-
+    this.showLines = false;
     this.counter = 0;
     setInterval(()=>{
       this.drawGame();
@@ -59,9 +59,12 @@ class Game{
     */
   drawGame() {
     this.gameArea.clear();
-    this.playerShip.alwaysActive();
     this.enemyShip.alwaysActive();
-    this.drawIntersections();
+    this.playerShip.alwaysActive();
+    
+    if (this.showLines) {
+      this.drawIntersections();
+    }
     this.performKeyFunctions();
     this.checkCollision();
   }
@@ -99,7 +102,7 @@ class Game{
 
 
     if (collision){
-      console.log(collision)
+      // console.log(collision)
       this.playerShip.color = this.randomColor();
       this.enemyShip.color = this.randomColor();
       // this.intersectColors = this.randomColor();

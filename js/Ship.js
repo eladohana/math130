@@ -261,7 +261,9 @@ class Ship extends MovingObject{
     */
   alwaysActive(){
     this.drawSelf();
-    this.drawLines();
+    if (this.game.showLines){
+      this.drawLines();
+    }
     this.shots = this.shots.filter(shot => shot.active);
     this.fireCounter += 1000/this.game.refreshRate;
     for (let shot of this.shots){
@@ -278,7 +280,7 @@ class Ship extends MovingObject{
 class ShipConfig extends MovingObjectConfig{
   constructor(x, y, degrees, radius, color, gameConfig){
     super(x, y, degrees, radius, color, gameConfig);
-    this.speedCoeff = 10 * 1;
+    this.speedCoeff = 10 * 0.5;
     this.angleCoeff = 1 * 1;
     this.speed = this.speedCoeff * gameConfig.moveUnits/gameConfig.refreshRate;
     this.rotationSpeed = this.angleCoeff * 360 / gameConfig.refreshRate;
